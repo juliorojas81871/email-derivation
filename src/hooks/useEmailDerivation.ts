@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { FormSchema } from '@/lib/schemas';
+import { FormSchema } from '@/lib/schemas/schemas';
 
 interface EmailDerivationResult {
   derivedEmail: string | null;
@@ -17,8 +17,6 @@ export function useEmailDerivation() {
     setError(null);
     setResult(null);
 
-    const fullName = `${data.firstName} ${data.lastName}`.trim();
-
     // Call API and reflect progress for UX feedback.
     setLoading(true);
     try {
@@ -28,7 +26,8 @@ export function useEmailDerivation() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          fullName,
+          firstName: data.firstName,
+          lastName: data.lastName,
           domain: data.domain,
         }),
       });

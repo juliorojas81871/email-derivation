@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Modal } from './Modal';
+import { Modal } from '../Modal/Modal';
+import styles from './ResultDisplay.module.css';
 
 interface ResultDisplayProps {
   email: string | null;
@@ -28,30 +29,30 @@ export function ResultDisplay({ email, error }: ResultDisplayProps) {
 
   return (
     <Modal isOpen={isOpen} onClose={handleClose}>
-      <div className="modal-result">
+      <div className={styles.modalResult}>
         {/* Render success result if email exists */}
         {email && (
-          <div className="result">
-            <h3 className="result-title">Email Derived Successfully!</h3>
-            <div className="result-email">
+          <div className={styles.result}>
+            <h3 className={styles.resultTitle}>Email Derived Successfully!</h3>
+            <div className={styles.resultEmail}>
               <strong>{email}</strong>
             </div>
-            <p className="result-message">This email was derived based on the company&apos;s naming pattern.</p>
+            <p className={styles.resultMessage}>This email was derived based on the company&apos;s naming pattern.</p>
           </div>
         )}
 
         {/* Render error message if error exists */}
         {error && (
-          <div className="error">
-            <h3 className="error-title">Derivation Failed</h3>
-            <div className="error-message">
+          <div className={styles.error}>
+            <h3 className={styles.errorTitle}>Derivation Failed</h3>
+            <div className={styles.errorMessage}>
               {error}
             </div>
           </div>
         )}
 
-        <div className="modal-actions">
-          <button className="button" onClick={handleClose}>
+        <div className={styles.modalActions}>
+          <button className={styles.button} onClick={handleClose}>
             Close
           </button>
         </div>

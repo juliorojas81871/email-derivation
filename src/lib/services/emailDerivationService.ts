@@ -1,4 +1,4 @@
-import { loadSampleData } from './dataLoader';
+import { loadSampleData } from '../data/dataLoader';
 import { detectEmailPattern } from './emailPatternDetector';
 import { deriveEmail } from './emailDeriver';
 

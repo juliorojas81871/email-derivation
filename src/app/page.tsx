@@ -1,25 +1,26 @@
 'use client';
 
-import EmailForm from '@/components/EmailForm';
-import { ResultDisplay } from '@/components/ResultDisplay';
+import EmailForm from '@/components/EmailFrom/EmailForm';
+import { ResultDisplay } from '@/components/ResultDisplay/ResultDisplay';
 import { useEmailDerivation } from '@/hooks/useEmailDerivation';
+import styles from './page.module.css';
 
 export default function Home() {
   const { result, error, derive } = useEmailDerivation();
 
   return (
-    <div className="container">
-      <div className="form-section">
-        <h1 className="title">Email Derivation</h1>
+    <div className={styles.container}>
+      <div className={styles.formSection}>
+        <h1 className={styles.title}>Email Derivation</h1>
         {/* Pass the derive action into the form; the hook manages state transitions. */}
         <EmailForm onSubmit={derive} />
         {/* Combined result display handles both success and error states */}
         <ResultDisplay email={result} error={error} />
       </div>
-
-      <div className="sample-section">
-        <h2 className="sample-title">Sample Data Patterns</h2>
-        <div className="sample-content">
+      
+      <div className={styles.sampleSection}>
+        <h2 className={styles.sampleTitle}>Sample Data Patterns</h2>
+        <div className={styles.sampleContent}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <h3 className="font-semibold text-gray-800 mb-2">Available Domains:</h3>

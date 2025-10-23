@@ -2,7 +2,8 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { formSchema, FormSchema } from "@/lib/schemas";
+import { formSchema, FormSchema } from "@/lib/schemas/schemas";
+import styles from './EmailForm.module.css';
 
 interface EmailFormProps {
   onSubmit: (data: FormSchema) => void;
@@ -29,15 +30,15 @@ export default function EmailForm({ onSubmit }: EmailFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)} className="form">
-      <label className="field">
-        <div className="label">First Name</div>
+    <form onSubmit={handleSubmit(handleFormSubmit)} className={styles.form}>
+      <label className={styles.field}>
+        <div className={styles.label}>First Name</div>
         <input
           id="firstName"
           aria-label="First Name"
           placeholder="e.g. Jane"
           {...register("firstName")}
-          className="input"
+          className={styles.input}
           type="text"
           onKeyDown={(e) => {
             if (e.key === ' ') {
@@ -46,20 +47,20 @@ export default function EmailForm({ onSubmit }: EmailFormProps) {
           }}
         />
         {errors.firstName && (
-          <label className="error-label" htmlFor="firstName">
+          <label className={styles.errorLabel} htmlFor="firstName">
             {errors.firstName.message}
           </label>
         )}
       </label>
 
-      <label className="field">
-        <div className="label">Last Name</div>
+      <label className={styles.field}>
+        <div className={styles.label}>Last Name</div>
         <input
           id="lastName"
           aria-label="Last Name"
           placeholder="e.g. Doe"
           {...register("lastName")}
-          className="input"
+          className={styles.input}
           type="text"
           onKeyDown={(e) => {
             if (e.key === ' ') {
@@ -68,42 +69,42 @@ export default function EmailForm({ onSubmit }: EmailFormProps) {
           }}
         />
         {errors.lastName && (
-          <label className="error-label" htmlFor="lastName">
+          <label className={styles.errorLabel} htmlFor="lastName">
             {errors.lastName.message}
           </label>
         )}
       </label>
 
-      <label className="field">
-        <div className="label">Company Domain</div>
+      <label className={styles.field}>
+        <div className={styles.label}>Company Domain</div>
         <input
           id="domain"
           aria-label="Company Domain"
           placeholder="e.g. babbel.com or https://www.google.com"
           {...register("domain")}
-          className="input"
+          className={styles.input}
           type="text"
         />
         {errors.domain && (
-          <label className="error-label" htmlFor="domain">
+          <label className={styles.errorLabel} htmlFor="domain">
             {errors.domain.message}
           </label>
         )}
       </label>
 
-      <div className="button-group">
-        <button
-          type="button"
-          disabled={!isDirty || isSubmitting}
+      <div className={styles.buttonGroup}>
+        <button 
+          type="button" 
+          disabled={!isDirty || isSubmitting} 
           onClick={() => reset()}
-          className="button button-secondary"
+          className={`${styles.button} ${styles.buttonSecondary}`}
         >
           Cancel
         </button>
-        <button
-          type="submit"
+        <button 
+          type="submit" 
           disabled={!isDirty || !isValid || isSubmitting}
-          className="button"
+          className={styles.button}
         >
           {isSubmitting ? 'Deriving...' : 'Submit'}
         </button>

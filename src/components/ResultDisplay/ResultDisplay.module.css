@@ -1,0 +1,80 @@
+/* ResultDisplay Component Styles */
+.result {
+  text-align: center;
+}
+
+.resultTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #52c41a;
+  margin: 0 0 16px 0;
+}
+
+.resultEmail {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111;
+  margin: 16px 0;
+  padding: 16px;
+  background: #f6ffed;
+  border: 1px solid #b7eb8f;
+  border-radius: 10px;
+  font-family: 'Courier New', monospace;
+}
+
+.resultMessage {
+  color: #666;
+  font-size: 14px;
+  margin: 16px 0 0 0;
+}
+
+.error {
+  text-align: center;
+}
+
+.errorTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #ff4d4f;
+  margin: 0 0 16px 0;
+}
+
+.errorMessage {
+  color: #ff4d4f;
+  font-size: 16px;
+  padding: 16px;
+  background: #fff1f0;
+  border: 1px solid #ffa39e;
+  border-radius: 10px;
+  margin: 16px 0;
+}
+
+.modalResult {
+  padding: 32px;
+}
+
+.modalActions {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid #111;
+  background: #111;
+  color: #fff;
+  cursor: pointer;
+  transition: transform .05s ease, opacity .15s ease;
+  font-weight: 500;
+}
+
+.button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.button:not(:disabled):active {
+  transform: translateY(1px);
+}

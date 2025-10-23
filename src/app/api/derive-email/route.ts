@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { deriveEmailAddress } from '@/lib/emailDerivationService';
-import { requestSchema } from '@/lib/serverSchemas';
+import { deriveEmailAddress } from '@/lib/services/emailDerivationService';
+import { requestSchema } from '@/lib/schemas/serverSchemas';
 
 export async function POST(request: NextRequest) {
   try {

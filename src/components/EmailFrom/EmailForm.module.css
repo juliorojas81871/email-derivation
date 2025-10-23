@@ -1,0 +1,74 @@
+/* EmailForm Component Styles */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #111;
+}
+
+.input {
+  padding: 12px 14px;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.input:focus {
+  border-color: #1677ff;
+  box-shadow: 0 0 0 3px rgba(22, 119, 255, 0.15);
+}
+
+.errorLabel {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #ff4d4f;
+  font-weight: 500;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.button {
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid #111;
+  background: #111;
+  color: #fff;
+  cursor: pointer;
+  transition: transform .05s ease, opacity .15s ease;
+  font-weight: 500;
+}
+
+.buttonSecondary {
+  background: transparent;
+  color: #111;
+  border: 1px solid #d9d9d9;
+}
+
+.buttonSecondary:hover:not(:disabled) {
+  background: #f5f5f5;
+}
+
+.button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.button:not(:disabled):active {
+  transform: translateY(1px);
+}
