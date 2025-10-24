@@ -37,27 +37,3 @@ jobs:
           name: build
           path: .next/
           retention-days: 7
-
-  # Add this job if you want to deploy to a hosting service
-  # deploy:
-  #   needs: test-and-build
-  #   runs-on: ubuntu-latest
-  #   if: github.ref == 'refs/heads/main'  # Only deploy on main branch
-  #
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #
-  #     - name: Download build artifacts
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         name: build
-  #         path: .next/
-  #
-  #     # Add your deployment steps here
-  #     # Example for Vercel:
-  #     # - name: Deploy to Vercel
-  #     #   uses: amondnet/vercel-action@v25
-  #     #   with:
-  #     #     vercel-token: ${{ secrets.VERCEL_TOKEN }}
-  #     #     vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-  #     #     vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
