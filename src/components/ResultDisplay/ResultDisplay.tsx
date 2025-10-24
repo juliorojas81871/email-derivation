@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Modal } from '../Modal/Modal';
 import styles from './ResultDisplay.module.css';
 
@@ -11,14 +11,7 @@ interface ResultDisplayProps {
 
 // Combined component that renders either success result or error message as a popup
 export function ResultDisplay({ email, error }: ResultDisplayProps) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  // Open modal when we have a result or error
-  useEffect(() => {
-    if (email || error) {
-      setIsOpen(true);
-    }
-  }, [email, error]);
+  const [isOpen, setIsOpen] = useState(Boolean(email || error));
 
   const handleClose = () => {
     setIsOpen(false);

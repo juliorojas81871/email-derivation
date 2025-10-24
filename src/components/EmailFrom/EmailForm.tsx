@@ -7,9 +7,10 @@ import styles from './EmailForm.module.css';
 
 interface EmailFormProps {
   onSubmit: (data: FormSchema) => void;
+  loading?: boolean;
 }
 
-export default function EmailForm({ onSubmit }: EmailFormProps) {
+export default function EmailForm({ onSubmit, loading = false }: EmailFormProps) {
   const {
     register,
     formState: { errors, isDirty, isValid, isSubmitting },
@@ -40,6 +41,7 @@ export default function EmailForm({ onSubmit }: EmailFormProps) {
           {...register("firstName")}
           className={styles.input}
           type="text"
+          disabled={loading}
           onKeyDown={(e) => {
             if (e.key === ' ') {
               e.preventDefault();
@@ -62,6 +64,7 @@ export default function EmailForm({ onSubmit }: EmailFormProps) {
           {...register("lastName")}
           className={styles.input}
           type="text"
+          disabled={loading}
           onKeyDown={(e) => {
             if (e.key === ' ') {
               e.preventDefault();
@@ -84,6 +87,7 @@ export default function EmailForm({ onSubmit }: EmailFormProps) {
           {...register("domain")}
           className={styles.input}
           type="text"
+          disabled={loading}
         />
         {errors.domain && (
           <label className={styles.errorLabel} htmlFor="domain">
@@ -93,20 +97,21 @@ export default function EmailForm({ onSubmit }: EmailFormProps) {
       </label>
 
       <div className={styles.buttonGroup}>
-        <button 
-          type="button" 
-          disabled={!isDirty || isSubmitting} 
+        <button
+          type="button"
+          disabled={!isDirty || isSubmitting || loading}
           onClick={() => reset()}
           className={`${styles.button} ${styles.buttonSecondary}`}
         >
           Cancel
         </button>
-        <button 
-          type="submit" 
-          disabled={!isDirty || !isValid || isSubmitting}
+        <button
+          type="submit"
+          disabled={!isDirty || !isValid || isSubmitting || loading}
           className={styles.button}
+          aria-label={loading ? 'Deriving...' : 'Derive Email'}
         >
-          {isSubmitting ? 'Deriving...' : 'Submit'}
+          {loading ? 'Deriving...' : 'Derive Email'}
         </button>
       </div>
     </form>

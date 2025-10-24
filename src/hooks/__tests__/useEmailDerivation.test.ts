@@ -116,12 +116,12 @@ describe('useEmailDerivation', () => {
     });
 
     it('should set loading state correctly', async () => {
-      let resolvePromise: (value: any) => void;
-      const promise = new Promise((resolve) => {
+      let resolvePromise: (value: Response) => void;
+      const promise = new Promise<Response>((resolve) => {
         resolvePromise = resolve;
       });
 
-      vi.mocked(fetch).mockReturnValueOnce(promise as any);
+      vi.mocked(fetch).mockReturnValueOnce(promise);
 
       const { result } = renderHook(() => useEmailDerivation());
 
@@ -137,11 +137,14 @@ describe('useEmailDerivation', () => {
       // Should be loading immediately after calling derive
       expect(result.current.loading).toBe(true);
 
-      // Resolve the promise
-      resolvePromise!({
-        ok: true,
-        json: () => Promise.resolve({ derivedEmail: 'jdoe@babbel.com', message: 'Success' })
-      });
+      // Resolve the promise with a proper Response object
+      resolvePromise!(new Response(
+        JSON.stringify({ derivedEmail: 'jdoe@babbel.com', message: 'Success' }), 
+        {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      ));
 
       await waitFor(() => {
         expect(result.current.loading).toBe(false);

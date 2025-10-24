@@ -18,9 +18,9 @@ describe('dataLoader', () => {
     it('should have expected sample data structure', () => {
       const data = loadSampleData();
       const entries = Object.entries(data);
-      
+
       expect(entries.length).toBeGreaterThan(0);
-      
+
       // Check that all values are email addresses
       entries.forEach(([name, email]) => {
         expect(typeof name).toBe('string');
@@ -32,11 +32,11 @@ describe('dataLoader', () => {
 
     it('should contain expected sample entries', () => {
       const data = loadSampleData();
-      
+
       // Check for some expected sample data
       const entries = Object.entries(data);
       expect(entries.length).toBeGreaterThan(0);
-      
+
       // Verify that we have some babbel.com entries
       const babbelEntries = entries.filter(([, email]) => email.includes('@babbel.com'));
       expect(babbelEntries.length).toBeGreaterThan(0);

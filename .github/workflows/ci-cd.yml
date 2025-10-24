@@ -1,0 +1,63 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.14.0'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Run tests
+        run: npm run test:run
+
+      - name: Build application
+        run: npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build
+          path: .next/
+          retention-days: 7
+
+  # Add this job if you want to deploy to a hosting service
+  # deploy:
+  #   needs: test-and-build
+  #   runs-on: ubuntu-latest
+  #   if: github.ref == 'refs/heads/main'  # Only deploy on main branch
+  #
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #
+  #     - name: Download build artifacts
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: build
+  #         path: .next/
+  #
+  #     # Add your deployment steps here
+  #     # Example for Vercel:
+  #     # - name: Deploy to Vercel
+  #     #   uses: amondnet/vercel-action@v25
+  #     #   with:
+  #     #     vercel-token: ${{ secrets.VERCEL_TOKEN }}
+  #     #     vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+  #     #     vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { deriveEmailAddress } from '../emailDerivationService';
-import { loadSampleData } from '../../data/dataLoader';
+import { loadSampleData, type SampleData } from '../../data/dataLoader';
 import { detectEmailPattern } from '../emailPatternDetector';
 import { deriveEmail } from '../emailDeriver';
 
@@ -16,8 +16,7 @@ describe('emailDerivationService', () => {
 
   describe('deriveEmailAddress', () => {
     it('should successfully derive email when pattern is detected', () => {
-      // Mock sample data
-      const mockSampleData = {
+      const mockSampleData: SampleData = {
         'John Doe': 'jdoe@babbel.com',
         'Jane Smith': 'jsmith@babbel.com'
       };
@@ -38,7 +37,7 @@ describe('emailDerivationService', () => {
     });
 
     it('should return failure when no sample data found for domain', () => {
-      const mockSampleData = {
+      const mockSampleData: SampleData = {
         'John Doe': 'jdoe@example.com'
       };
       vi.mocked(loadSampleData).mockReturnValue(mockSampleData);
@@ -56,7 +55,7 @@ describe('emailDerivationService', () => {
     });
 
     it('should return failure when no pattern can be detected', () => {
-      const mockSampleData = {
+      const mockSampleData: SampleData = {
         'John Doe': 'jdoe@babbel.com'
       };
       vi.mocked(loadSampleData).mockReturnValue(mockSampleData);
@@ -75,7 +74,7 @@ describe('emailDerivationService', () => {
     });
 
     it('should handle case insensitive domain matching', () => {
-      const mockSampleData = {
+      const mockSampleData: SampleData = {
         'John Doe': 'jdoe@BABBEL.COM'
       };
       vi.mocked(loadSampleData).mockReturnValue(mockSampleData);
@@ -89,14 +88,14 @@ describe('emailDerivationService', () => {
     });
 
     it('should handle multiple samples and use first detected pattern', () => {
-      const mockSampleData = {
+      const mockSampleData: SampleData = {
         'John Doe': 'jdoe@babbel.com',
         'Jane Smith': 'jsmith@babbel.com'
       };
       vi.mocked(loadSampleData).mockReturnValue(mockSampleData);
       vi.mocked(detectEmailPattern)
-        .mockReturnValueOnce(null) // First sample returns null
-        .mockReturnValueOnce('first_name_initial_last_name'); // Second sample returns pattern
+        .mockReturnValueOnce(null)
+        .mockReturnValueOnce('first_name_initial_last_name');
       vi.mocked(deriveEmail).mockReturnValue('jdoe@babbel.com');
 
       const result = deriveEmailAddress('John', 'Doe', 'babbel.com');
@@ -108,7 +107,7 @@ describe('emailDerivationService', () => {
     });
 
     it('should handle empty first name', () => {
-      const mockSampleData = {
+      const mockSampleData: SampleData = {
         'John Doe': 'jdoe@babbel.com'
       };
       vi.mocked(loadSampleData).mockReturnValue(mockSampleData);
@@ -122,7 +121,7 @@ describe('emailDerivationService', () => {
     });
 
     it('should handle empty last name', () => {
-      const mockSampleData = {
+      const mockSampleData: SampleData = {
         'John Doe': 'jdoe@babbel.com'
       };
       vi.mocked(loadSampleData).mockReturnValue(mockSampleData);
@@ -136,7 +135,7 @@ describe('emailDerivationService', () => {
     });
 
     it('should trim whitespace from names', () => {
-      const mockSampleData = {
+      const mockSampleData: SampleData = {
         'John Doe': 'jdoe@babbel.com'
       };
       vi.mocked(loadSampleData).mockReturnValue(mockSampleData);

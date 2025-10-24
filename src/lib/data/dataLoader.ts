@@ -1,4 +1,6 @@
 import data from '../../../data.json';
 
 // Load sample data once at module initialization
-export const loadSampleData = () => data;
+export type SampleData = Record<string, string>;
+
+export const loadSampleData = (): SampleData => data;
