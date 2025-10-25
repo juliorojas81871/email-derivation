@@ -3,7 +3,7 @@
 ### Description
 A Next.js App Router application that derives likely email addresses based on a company’s naming pattern. Users enter first name, last name and company domain; the app normalizes the domain, validates input with Zod (client + server), calls a Next.js API route, and shows the result in a modal. Includes component, hook, schema and API tests with Vitest.
 
-If anyone want see this code, [please click at this link]([https://reddit-clone-lake-zeta.vercel.app/](https://email-derivation.vercel.app)).
+If anyone want see this code, [please click at this link](https://email-derivation.vercel.app).
 
 ### Features
 - **Form-driven derivation**: First name, last name, company domain
