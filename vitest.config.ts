@@ -17,11 +17,14 @@ export default defineConfig({
       'dist',
       'build'
     ],
-    css: true,  // This tells Vitest to handle CSS imports
+    css: false  // Disable CSS processing in tests
   },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src')
     }
+  },
+  esbuild: {
+    target: 'node14'
   }
 });

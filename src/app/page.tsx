@@ -15,9 +15,9 @@ export default function Home() {
         {/* Pass the derive action into the form; the hook manages state transitions. */}
         <EmailForm onSubmit={derive} />
         {/* Combined result display handles both success and error states */}
-        <ResultDisplay email={result} error={error} />
+        {(result || error) && <ResultDisplay email={result} error={error} />}
       </div>
-      
+
       <div className={styles.sampleSection}>
         <h2 className={styles.sampleTitle}>Sample Data Patterns</h2>
         <div className={styles.sampleContent}>

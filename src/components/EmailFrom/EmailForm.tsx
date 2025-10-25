@@ -15,7 +15,8 @@ export default function EmailForm({ onSubmit, loading = false }: EmailFormProps)
     register,
     formState: { errors, isDirty, isValid, isSubmitting },
     reset,
-    handleSubmit
+    handleSubmit,
+    setValue
   } = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -38,15 +39,15 @@ export default function EmailForm({ onSubmit, loading = false }: EmailFormProps)
           id="firstName"
           aria-label="First Name"
           placeholder="e.g. Jane"
-          {...register("firstName")}
+          {...register("firstName", {
+            onChange: (e) => {
+              const value = e.target.value.replace(/\s/g, '');
+              setValue('firstName', value);
+            }
+          })}
           className={styles.input}
           type="text"
           disabled={loading}
-          onKeyDown={(e) => {
-            if (e.key === ' ') {
-              e.preventDefault();
-            }
-          }}
         />
         {errors.firstName && (
           <label className={styles.errorLabel} htmlFor="firstName">
@@ -61,15 +62,15 @@ export default function EmailForm({ onSubmit, loading = false }: EmailFormProps)
           id="lastName"
           aria-label="Last Name"
           placeholder="e.g. Doe"
-          {...register("lastName")}
+          {...register("lastName", {
+            onChange: (e) => {
+              const value = e.target.value.replace(/\s/g, '');
+              setValue('lastName', value);
+            }
+          })}
           className={styles.input}
           type="text"
           disabled={loading}
-          onKeyDown={(e) => {
-            if (e.key === ' ') {
-              e.preventDefault();
-            }
-          }}
         />
         {errors.lastName && (
           <label className={styles.errorLabel} htmlFor="lastName">

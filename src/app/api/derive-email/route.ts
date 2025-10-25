@@ -1,17 +1,17 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { deriveEmailAddress } from '@/lib/services/emailDerivationService';
 import { requestSchema } from '@/lib/schemas/serverSchemas';
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   try {
     const body = await request.json();
-    
+
     // Validate request body with Zod
     const validationResult = requestSchema.safeParse(body);
-    
+
     if (!validationResult.success) {
       return NextResponse.json(
-        { 
+        {
           error: 'Validation failed',
           details: validationResult.error.issues.map(err => ({
             field: err.path.join('.'),

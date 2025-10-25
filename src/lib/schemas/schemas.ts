@@ -37,6 +37,7 @@ export const formSchema = z.object({
 
   domain: z.string()
     .min(1, { message: "Domain is required" })
+    .max(254, { message: "Domain must be at most 254 characters" })
     .transform(normalizeDomain)
     .refine((val) => val.includes("."), { message: "Domain must contain a dot (e.g., babbel.com)" })
     .refine((val) => !/\s/.test(val), { message: "Domain cannot contain spaces" })

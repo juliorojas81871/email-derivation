@@ -24,10 +24,12 @@ describe('useEmailDerivation', () => {
 
       const { result } = renderHook(() => useEmailDerivation());
 
-      await result.current.derive({
-        firstName: 'John',
-        lastName: 'Doe',
-        domain: 'babbel.com'
+      await act(async () => {
+        await result.current.derive({
+          firstName: 'John',
+          lastName: 'Doe',
+          domain: 'babbel.com'
+        });
       });
 
       await waitFor(() => {
@@ -63,10 +65,12 @@ describe('useEmailDerivation', () => {
 
       const { result } = renderHook(() => useEmailDerivation());
 
-      await result.current.derive({
-        firstName: '',
-        lastName: 'Doe',
-        domain: 'babbel.com'
+      await act(async () => {
+        await result.current.derive({
+          firstName: '',
+          lastName: 'Doe',
+          domain: 'babbel.com'
+        });
       });
 
       await waitFor(() => {
@@ -81,10 +85,12 @@ describe('useEmailDerivation', () => {
 
       const { result } = renderHook(() => useEmailDerivation());
 
-      await result.current.derive({
-        firstName: 'John',
-        lastName: 'Doe',
-        domain: 'babbel.com'
+      await act(async () => {
+        await result.current.derive({
+          firstName: 'John',
+          lastName: 'Doe',
+          domain: 'babbel.com'
+        });
       });
 
       await waitFor(() => {
@@ -102,10 +108,12 @@ describe('useEmailDerivation', () => {
 
       const { result } = renderHook(() => useEmailDerivation());
 
-      await result.current.derive({
-        firstName: 'John',
-        lastName: 'Doe',
-        domain: 'babbel.com'
+      await act(async () => {
+        await result.current.derive({
+          firstName: 'John',
+          lastName: 'Doe',
+          domain: 'babbel.com'
+        });
       });
 
       await waitFor(() => {
@@ -169,8 +177,16 @@ describe('useEmailDerivation', () => {
       });
 
       await waitFor(() => {
-        expect(result.current.result).toBeDefined();
+        expect(result.current.result).toBe('jdoe@babbel.com');
       });
+
+      // Mock second derivation with a delayed response to test clearing
+      let resolveSecondPromise: (value: Response) => void;
+      const secondPromise = new Promise<Response>((resolve) => {
+        resolveSecondPromise = resolve;
+      });
+
+      vi.mocked(fetch).mockReturnValueOnce(secondPromise);
 
       // Start second derivation
       act(() => {
@@ -181,9 +197,23 @@ describe('useEmailDerivation', () => {
         });
       });
 
-      // Result should be cleared immediately
+      // Result should be cleared immediately when starting new derivation
       expect(result.current.result).toBeNull();
       expect(result.current.error).toBeNull();
+      expect(result.current.loading).toBe(true);
+
+      // Resolve the second promise
+      resolveSecondPromise!(new Response(
+        JSON.stringify({ derivedEmail: 'jsmith@babbel.com', message: 'Success' }), 
+        {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      ));
+
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
     });
   });
 

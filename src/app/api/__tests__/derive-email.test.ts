@@ -164,6 +164,9 @@ describe('/api/derive-email', () => {
     });
 
     it('should return 500 for internal server error', async () => {
+      // Mock console.error to suppress output during test
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
       vi.mocked(deriveEmailAddress).mockImplementation(() => {
         throw new Error('Internal error');
       });
@@ -185,6 +188,12 @@ describe('/api/derive-email', () => {
 
       expect(response.status).toBe(500);
       expect(data.error).toBe('Internal server error');
+
+      // Verify that console.error was called with the expected error
+      expect(consoleSpy).toHaveBeenCalledWith('Error in derive-email endpoint:', expect.any(Error));
+
+      // Restore console.error
+      consoleSpy.mockRestore();
     });
 
     it('should handle names with spaces correctly', async () => {

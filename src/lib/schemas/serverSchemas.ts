@@ -28,6 +28,7 @@ const requestSchema = z.object({
   lastName: z.string().trim().min(1, { message: 'Last name is required' }).max(24, { message: 'Last name must be at most 24 characters' }),
   domain: z.string()
     .min(1, { message: 'Domain is required' })
+    .max(254, { message: 'Domain must be at most 254 characters' })
     .transform(normalizeDomain)
     .refine((val) => val.includes('.'), { message: 'Domain must contain a dot (e.g., babbel.com)' })
 });

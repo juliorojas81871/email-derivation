@@ -11,7 +11,7 @@ interface ResultDisplayProps {
 
 // Combined component that renders either success result or error message as a popup
 export function ResultDisplay({ email, error }: ResultDisplayProps) {
-  const [isOpen, setIsOpen] = useState(Boolean(email || error));
+  const [isOpen, setIsOpen] = useState(true);
 
   const handleClose = () => {
     setIsOpen(false);

@@ -20,6 +20,12 @@
   border: 1px solid #b7eb8f;
   border-radius: 10px;
   font-family: 'Courier New', monospace;
+  /* keep line unbroken; allow horizontal scroll instead of breaking */
+  width: 100%;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .resultMessage {
